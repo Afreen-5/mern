@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { JwtStrategy } from './auth/jwt-strategy';
+import { MoviesModule } from './movies/movies.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { JwtStrategy } from './auth/jwt-strategy';
     ),
     UsersModule,
     AuthModule,
+    MoviesModule,
   ],
   controllers: [AppController],
   providers: [AppService, JwtStrategy],

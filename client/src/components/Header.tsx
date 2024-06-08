@@ -1,25 +1,17 @@
-import React from "react";
-import "./Header.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   return (
-    <header className="header">
-      <div className="logo">
-        <img src="" alt="MV Player" />
+    <header className="bg-gray-900 text-white p-4 flex justify-between items-center">
+      <div className="text-2xl font-bold">
+        <Link to="/">MX Player Clone</Link>
       </div>
-      <nav className="nav">
-        <ul>
-          <li>Shows</li>
-          <li>Movies</li>
-          <li>New & Hot</li>
-          <li>DistroTV</li>
-          <li>MV VDesi</li>
-          <li>Others</li>
-        </ul>
+      <nav>
+        <Link to="/" className="mr-4">Home</Link>
+        <Link to="/about" className="mr-4">About</Link>
+        <Link to="/contact">Contact</Link>
       </nav>
-      <div className="btn-login">
-        <button>Login</button>
-      </div>
     </header>
   );
 };

@@ -23,14 +23,10 @@ export class MoviesController {
     return this.moviesService.create(createMovieDto);
   }
 
-  @Get('search')
-  searchMovies(@Query('query') query: string): Observable<AxiosResponse<any>> {
-    return this.moviesService.searchMovies(query);
-  }
-
-  @Get(':id')
-  getMovieDetails(@Param('id') id: string): Observable<AxiosResponse<any>> {
-    return this.moviesService.getMovieDetails(id);
+  @Get()
+  async getMovies() {
+    const token = await this.moviesService.getMoviesToken();
+    return token;
   }
 
   @Patch(':id')

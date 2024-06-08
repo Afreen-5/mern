@@ -2,16 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { Observable, map } from 'rxjs';
-import { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { HttpService } from '@nestjs/axios';
-import { response } from 'express';
 
 @Injectable()
 export class MoviesService {
   private readonly API_KEY =
-    '28ee46571bmsh0c1e10628829b09p1132c9jsn71d3324d3299';
+    '90d4be4a96e8ee513a15b076908f391d';
   private readonly BASE_URL =
-    'https://streaming-availability.p.rapidapi.com/shows/search/filters';
+    'https://api.themoviedb.org/3/authentication';
+    private readonly ACCESS_TOKEN_AUTH = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MGQ0YmU0YTk2ZThlZTUxM2ExNWIwNzY5MDhmMzkxZCIsInN1YiI6IjY2NWYzYmFmOTYxNThhM2M3ZjlkNmJlMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.F5rQifrZZUrSG94jYM-3WdcQ1GF9Wa8ZujeSOaNF17M';
 
   constructor(private httpService: HttpService) {}
 
@@ -19,14 +19,14 @@ export class MoviesService {
     return 'This action adds a new movie';
   }
 
-  searchMovies(query: string): Observable<AxiosResponse<any>> {
-    const url = `${this.BASE_URL}/search/movie?api_key=${this.API_KEY}&query=${query}`;
-    return this.httpService.get(url).pipe(map((response) => response.data));
-  }
-
-  getMovieDetails(id: string): Observable<AxiosResponse<any>> {
-    const url = `${this.BASE_URL}/movie/${id}?api_key=${this.API_KEY}`;
-    return this.httpService.get(url).pipe(map((response) => response.data));
+  async getMoviesToken(): Promise<string> {
+    const response = await axios.get(`https://api.themoviedb.org/3/authentication`, {
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MGQ0YmU0YTk2ZThlZTUxM2ExNWIwNzY5MDhmMzkxZCIsInN1YiI6IjY2NWYzYmFmOTYxNThhM2M3ZjlkNmJlMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.F5rQifrZZUrSG94jYM-3WdcQ1GF9Wa8ZujeSOaNF17M'
+      }
+    });
+    return response.data;
   }
 
   update(id: number, updateMovieDto: UpdateMovieDto) {

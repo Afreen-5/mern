@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const API_KEY = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MGQ0YmU0YTk2ZThlZTUxM2ExNWIwNzY5MDhmMzkxZCIsInN1YiI6IjY2NWYzYmFmOTYxNThhM2M3ZjlkNmJlMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.F5rQifrZZUrSG94jYM-3WdcQ1GF9Wa8ZujeSOaNF17M';
+const API_KEY = '90d4be4a96e8ee513a15b076908f391d';
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 export const fetchMovies = async (category: string) => {
     try {
-        const response = await axios.get(`${BASE_URL}/movies/${category}`,{
+        const response = await axios.get(`${BASE_URL}/movie/${category}`,{
             params: {api_key: API_KEY}
         });
         console.log("Successfully fetched data");

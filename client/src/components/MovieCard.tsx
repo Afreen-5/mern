@@ -1,23 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-interface MovieCardProps {
-  id: number;
-  title: string;
-  posterPath: string;
+export interface MovieCardProps {
+  movie: {
+    id: number;
+    title: string;
+    poster_path: string;
+    release_date: string;
+  };
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ id, title, posterPath }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+  const imageUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
   return (
-    <div className="p-2">
-      <Link to={`/movie/${id}`} className="block">
-        <img
-          src={`https://image.tmdb.org/t/p/w500${posterPath}`}
-          alt={title}
-          className="w-full h-auto rounded"
-        />
-        <h3 className="mt-2 text-center text-lg font-bold">{title}</h3>
-      </Link>
+    <div className="max-w-sm rounded overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
+      <img className="w-full h-64 object-cover" src={imageUrl} alt={movie.title} />
+      <div className="px-6 py-4">
+        <div className="font-bold text-xl mb-2">{movie.title}</div>
+        <p className="text-gray-700 text-base">{movie.release_date}</p>
+      </div>
     </div>
   );
 };

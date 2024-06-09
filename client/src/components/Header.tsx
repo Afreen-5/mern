@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   return (
-    <header className="bg-gray-900 text-white p-4 flex justify-between items-center">
+    <header className="p-4 flex justify-between items-center">
       <div className="text-2xl font-bold">
-        <Link to="/">MX Player Clone</Link>
+        <Link to="/">MX Player</Link>
       </div>
       <nav>
         <Link to="/" className="mr-4">Home</Link>

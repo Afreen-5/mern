@@ -19,7 +19,7 @@ export const fetchMovies = async (category: string) => {
 
 export const fetchMovieDetails = async (id: number) => {
     try {
-        const response = await axios.get(`${BASE_URL}/movies/${id}`,{
+        const response = await axios.get(`${BASE_URL}/movie/${id}`,{
             params: { api_key: API_KEY }
         });
         console.log("Successfully fetched Movies details data");
@@ -29,3 +29,14 @@ export const fetchMovieDetails = async (id: number) => {
         return null;
     }
 }
+
+export const fetchMovieVideos = async (movieId: number) => {
+    const response = await axios.get(`${BASE_URL}/movie/${movieId}/videos`, {
+        params: {
+            api_key: 'YOUR_API_KEY',
+            language: 'en-US',
+        },
+    });
+    return response.data.results.filter((video: any) => video.type === 'Trailer');
+};
+

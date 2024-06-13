@@ -1,32 +1,20 @@
-import { useEffect, useState } from "react"
-import { fetchMovies } from "./api/tmdb";
-import Header from "./components/Header";
-import MovieCard, { MovieCardProps } from "./components/MovieCard";
+import React from "react";
 import Footer from "./components/Footer";
+import Header from "./components/Header";
+import MovieCard from "./components/MovieCard";
 import MovieCarousel from "./components/MovieCarousel";
 
-const App = () => {
-  const [movies, setMovies] = useState<MovieCardProps[]>([]);
-
-  useEffect(() => {
-    const loadMovies = async () => {
-      const popularMovies = await fetchMovies('popular');
-      setMovies(popularMovies.results);
-    };
-    loadMovies();
-  }, []);
+const App: React.FC = () => {
 
   return(
     <>
-    <div className="m-0 p-0 bg-gray-500">
+    <div className="m-0 p-0 bg-gray-200">
       <div className="container mx-auto">
         <Header />
         <MovieCarousel />
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-         { movies.map( (movie: any) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </div>
+       
+            <MovieCard />
+        
         <Footer />
       </div>
     </div>

@@ -8,9 +8,7 @@ export const fetchMovies = async (category: string) => {
         const response = await axios.get(`${BASE_URL}/movie/${category}`,{
             params: {api_key: API_KEY}
         });
-        console.log("Successfully fetched data");
-        return response.data;
-        
+        return response.data;     
     } catch (error) {
         console.log("Error fetching data", error);
         return [];   
@@ -22,7 +20,6 @@ export const fetchMovieDetails = async (id: number) => {
         const response = await axios.get(`${BASE_URL}/movie/${id}`,{
             params: { api_key: API_KEY }
         });
-        console.log("Successfully fetched Movies details data");
         return response.data;
     } catch (error) {
         console.error("Error fetching movie details data", error);
@@ -31,12 +28,31 @@ export const fetchMovieDetails = async (id: number) => {
 }
 
 export const fetchMovieVideos = async (movieId: number) => {
-    const response = await axios.get(`${BASE_URL}/movie/${movieId}/videos`, {
-        params: {
-            api_key: 'YOUR_API_KEY',
-            language: 'en-US',
-        },
-    });
-    return response.data.results.filter((video: any) => video.type === 'Trailer');
+    try {
+        const response = await axios.get(`${BASE_URL}/movie/${movieId}/videos`, {
+            params: {
+                api_key:  API_KEY,
+                language: 'en-US',
+            },
+        });
+        return response.data.results.filter((video: any) => video.type === 'Trailer');
+    } catch (error) {
+        console.log("Error fetching video", error)
+        return null;
+    }
 };
 
+export const fetchTrendingMovies = async () => {
+    try {
+        const response = await axios.get(`${BASE_URL}/trending/movie/day`, {
+            params: {
+                api_key: API_KEY,
+                language: 'en-US',
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching Top rated movies data", error);
+        return null;
+    }
+}

@@ -3,7 +3,6 @@ import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { fetchTrendingMovies } from "../api/tmdb";
-import MovieTrailer from "./MovieTrailer";
 
 const MovieCarousel: React.FC = () => {
     const [topRatedMovies, setTopRatedMovies] = useState<any[]>([]);
@@ -42,13 +41,12 @@ const MovieCarousel: React.FC = () => {
     return( 
         <>
             <div className="py-8">
-                <MovieTrailer />
                 <Slider {...settings}>
                     {topRatedMovies.map((movie) => (
                         <div key={movie.id} className="px-2">
                             <img 
                                 className="w-full h-80 rounded-lg object-cover" 
-                                src={`${imageUrl}${movie.backdrop_path}`} 
+                                src={`${imageUrl}${movie.poster_path}`} 
                                 alt={movie.original_title} 
                             />
                         </div>

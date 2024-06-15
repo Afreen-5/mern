@@ -35,7 +35,7 @@ export const fetchMovieVideos = async (movieId: number) => {
                 language: 'en-US',
             },
         });
-        return response.data.results.filter((video: any) => video.type === 'Trailer');
+        return response.data.results.filter((video: any) => video.site === 'YouTube' && video.type === 'Trailer');
     } catch (error) {
         console.log("Error fetching video", error)
         return null;

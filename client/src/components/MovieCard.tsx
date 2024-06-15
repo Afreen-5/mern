@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchMovies } from '../api/tmdb';
 import Slider from 'react-slick';
-
 export interface MovieCardProps {
   movie: {
     id: number;
@@ -56,26 +55,25 @@ const MovieCard: React.FC = () => {
     ]
 };
 
-
   const imageUrl = `https://image.tmdb.org/t/p/w500`;
   return (
     <>
     <div className="container mx-auto ">
       <p className='my-8'>MX Popular Shows</p>
       <Slider {...settings}>
-      {popular.map( (movie) => 
-           <div key={movie.id} className="px-2">
-              <img 
-                  className="w-full h-80 rounded-lg object-cover hover:scale-125" 
-                  src={`${imageUrl}${movie.poster_path}`} 
-                  alt={movie.original_title} 
-              />
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">{movie.title}</div>
-            <p className="text-gray-700 text-base">{movie.release_date}</p>
-          </div>
-          </div>
-      )}
+          {popular.map( (movie) => 
+              <div key={movie.id} className="px-2">
+                  <img 
+                      className="w-full h-80 rounded-lg object-cover hover:scale-125" 
+                      src={`${imageUrl}${movie.poster_path}`} 
+                      alt={movie.original_title} 
+                  />
+                  <div className="px-6 py-4">
+                    <div className="font-bold text-xl mb-2">{movie.title}</div>
+                    <p className="text-gray-700 text-base">{movie.release_date}</p>
+                  </div>
+              </div>
+          )}
       </Slider>
       </div>
     </>

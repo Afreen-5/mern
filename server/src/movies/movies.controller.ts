@@ -1,6 +1,5 @@
 import {
   Controller,
-  Get,
   Post,
   Body,
   Patch,
@@ -11,8 +10,6 @@ import {
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
-import { Observable } from 'rxjs';
-import { AxiosResponse } from 'axios';
 
 @Controller('movies')
 export class MoviesController {
@@ -21,12 +18,6 @@ export class MoviesController {
   @Post()
   create(@Body() createMovieDto: CreateMovieDto) {
     return this.moviesService.create(createMovieDto);
-  }
-
-  @Get()
-  async getMovies() {
-    const token = await this.moviesService.getMoviesToken();
-    return token;
   }
 
   @Patch(':id')

@@ -22,7 +22,6 @@ export class UsersService {
     private roleModel: Model<RoleDocument>,
   ) {}
 
-  @UseGuards(JwtAuthGuard)
   async create(createUserDto: CreateUserDto) {
     const isUsernameExist = await this.validateUsername(createUserDto.username);
     if (isUsernameExist) throw new HttpException('Username already exists', 406);
@@ -43,12 +42,10 @@ export class UsersService {
     return createdUser.save();
   }
 
-  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.userModel.find().populate('role').exec();
   }
 
-  @UseGuards(JwtAuthGuard)
   async findOne(id: string) {
     const isValid = this.validateId(id);
     if (!isValid) throw new HttpException('Invalid Id', 400);
@@ -59,7 +56,6 @@ export class UsersService {
     return user;
   }
 
-  @UseGuards(JwtAuthGuard)
   async update(id: string, updateUserDto: UpdateUserDto) {
     const role = await this.roleModel.findById(updateUserDto.roleId).exec();
     if (!role) throw new HttpException('Role not found', 404);
@@ -76,7 +72,6 @@ export class UsersService {
       .exec();
   }
 
-  @UseGuards(JwtAuthGuard)
   async remove(id: string) {
     const isValid = this.validateId(id);
     if (!isValid) throw new HttpException('User id is not valid', 400);

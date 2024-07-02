@@ -9,6 +9,7 @@ import { MoviesModule } from './movies/movies.module';
 import { AdminModule } from './admin/admin.module';
 import { RolesModule } from './roles/roles.module';
 import { UploadsModule } from './uploads/uploads.module';
+import { GenresModule } from './genres/genres.module';
 import mongoose from 'mongoose';
 
 @Module({
@@ -23,6 +24,7 @@ import mongoose from 'mongoose';
     AdminModule,
     RolesModule,
     UploadsModule,
+    GenresModule,
   ],
   controllers: [AppController],
   providers: [AppService, JwtStrategy],

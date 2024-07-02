@@ -1,16 +1,30 @@
-import { IsOptional, IsString } from "class-validator";
+import { IsArray, IsOptional, IsString } from "class-validator";
+import { Date } from "mongoose";
 
 export class CreateMovieDto {
 
     @IsOptional()
     @IsString()
-    movie?: string;
+    title?: string;
 
     @IsOptional()
     @IsString()
-    poster?: string;
+    description?: string;
 
     @IsOptional()
     @IsString()
     videoKey?: string; 
+
+    @IsOptional()
+    release_date?: Date;
+
+    @IsOptional()
+    rating?: number;
+
+    @IsOptional()
+    @IsArray()
+    genres?: string[];
+
+    @IsOptional()
+    poster_path?: string;
 }

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Types } from 'mongoose';
+import mongoose from 'mongoose';
 import { AbstractEntity } from 'src/abstract.entity';
 import { Role } from 'src/roles/entities/role.entity';
 

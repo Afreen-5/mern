@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import mongoose from "mongoose";
+import mongoose, { Date } from "mongoose";
 import { AbstractEntity } from "src/abstract.entity";
 import { Upload } from "src/uploads/entities/upload.entity";
 
@@ -7,13 +7,25 @@ import { Upload } from "src/uploads/entities/upload.entity";
 export class Movie extends AbstractEntity{
 
     @Prop({ required: false, index: true })
-    movie?: string;
+    title?: string;
 
-    @Prop({ requied: false, index: true })
-    poster?: string;
+    @Prop({ required: false, index: true })
+    description?: string;
 
-    @Prop({ requied: false, index: true })
+    @Prop({ required: false, index: true })
     videoKey?: string; 
+
+    @Prop({ type: Date, required: false, index: true})
+    release_date?: Date;
+
+    @Prop({ required: false, index: true })
+    rating?: number; 
+
+    @Prop({ required: false, index: true })
+    genresId?: string[]; 
+
+    @Prop({ required: false, index: true })
+    poster_path?: string; 
 
     @Prop({ type: mongoose.Schema.ObjectId, ref: 'Upload', required: false, index: true })
     upload: Upload[];

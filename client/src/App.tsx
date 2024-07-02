@@ -1,24 +1,30 @@
 import React from "react";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import MovieCard from "./components/MovieCard";
-import MovieTrailer from "./components/MovieTrailer";
+import AuthProvider from "./context/AuthContext";
+import AppRoutes from "./routes/AppRoutes";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
 
 const App: React.FC = () => {
-
-  return(
-    <>
+  return (
     <div className="m-0 p-0 bg-gray-200">
       <div className="container mx-full">
-        <Header />
-        <MovieTrailer />
-        <MovieCard />
-
-        <Footer />
+        <Router>
+          <AuthProvider>
+          <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/login' element={<Login />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path='/admin-dashboard' element={<AdminDashboard />} />
+              </Route>
+          </Routes>
+          </AuthProvider>
+        </Router>
       </div>
     </div>
-    </>
-  )
-}
+  );
+};
 
 export default App;

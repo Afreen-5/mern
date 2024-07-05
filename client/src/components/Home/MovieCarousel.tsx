@@ -36,24 +36,23 @@ const MovieCarousel: React.FC = () => {
     autoplaySpeed: 2000,
   };
 
-  const imageUrl = `https://image.tmdb.org/t/p/w400`;
+  // Use a higher resolution for images or original to avoid them appearing zoomed.
+  const imageUrl = `https://image.tmdb.org/t/p/original`;
 
   return (
-    <>
-      <div className="py-8">
-        <Slider {...settings}>
-          {topRatedMovies.map((movie) => (
-            <div key={movie.id} className="px-2">
-              <img
-                className="w-full h-80 rounded-lg object-cover"
-                src={`${imageUrl}${movie.poster_path}`}
-                alt={movie.original_title}
-              />
-            </div>
-          ))}
-        </Slider>
-      </div>
-    </>
+    <div className="py-8">
+      <Slider {...settings}>
+        {topRatedMovies.map((movie) => (
+          <div key={movie.id} className="px-2">
+            <img
+              className="w-full h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[90vh] object-cover sm:object-contain rounded-lg"
+              src={`${imageUrl}${movie.poster_path}`}
+              alt={movie.original_title}
+            />
+          </div>
+        ))}
+      </Slider>
+    </div>
   );
 };
 

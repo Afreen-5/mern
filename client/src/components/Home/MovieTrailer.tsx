@@ -52,12 +52,12 @@ const MovieTrailer: React.FC = () => {
       <Slider {...settings} className="w-full h-full">
         {trailers.map((trailer) => (
           <div key={trailer.id} className="px-2">
-            <iframe
+            {/* <iframe
               className="w-full h-80 rounded-lg object-cover"
               src={`https://www.youtube.com/embed/${trailer.key}?enablejsapi=1`}
               allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-            />
+            /> */}
           </div>
         ))}
       </Slider>

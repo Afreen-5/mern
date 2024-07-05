@@ -18,7 +18,6 @@ export const addMovies = async (movie: any) => {
 export const getAllMovies = async () => {
     try {
         const response = await axios.get(`${BASE_URL}`);
-        console.log("Fetched movies", response.data);
         return response.data;
     } catch (error) {
         console.error("Failed to fetch movies", error);
@@ -59,5 +58,18 @@ export const deleteMovie = async (id: string) => {
     } catch (error) {
         console.error("Failed to delete movie", error);
         return null;
+    }
+}
+
+export const moviesByMonth = async () => {
+    try {
+        const response = await axios.get(`${BASE_URL}/added-per-month`, {
+            headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+        });
+        console.log("Movies by month", response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Failed to fetch moies by month", error);
+        return [];
     }
 }

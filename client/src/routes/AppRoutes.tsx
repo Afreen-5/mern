@@ -11,7 +11,7 @@ const AppRoutes: React.FC = () => {
       <Route path='/' element={<Home />} />
       <Route path='/login' element={<Login />} />
       <Route element={<ProtectedRoute />}>
-        <Route path='/admin-dashboard' element={<AdminDashboard />} />
+        <Route path='/admin-dashboard/*' element={<AdminDashboard />} />
       </Route>
     </Routes>
   );

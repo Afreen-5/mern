@@ -1,6 +1,5 @@
 import React from "react";
 import AuthProvider from "./context/AuthContext";
-import AppRoutes from "./routes/AppRoutes";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -15,9 +14,11 @@ const App: React.FC = () => {
           <AuthProvider>
           <Routes>
               <Route path='/' element={<Home />} />
-              <Route path='/login' element={<Login />} />
+              <Route path='/login' element={<Login onClose={function (): void {
+                throw new Error("Function not implemented.");
+              } } />} />
               <Route element={<ProtectedRoute />}>
-                <Route path='/admin-dashboard' element={<AdminDashboard />} />
+                <Route path='/admin-dashboard/*' element={<AdminDashboard />} />
               </Route>
           </Routes>
           </AuthProvider>

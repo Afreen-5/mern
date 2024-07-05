@@ -1,7 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateMovieDto } from './create-movie.dto';
-import { IsArray, IsOptional, IsString } from 'class-validator';
-import { Date } from 'mongoose';
+import { IsArray, IsDate, IsOptional, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class UpdateMovieDto extends PartialType(CreateMovieDto) {
 
@@ -18,6 +18,8 @@ export class UpdateMovieDto extends PartialType(CreateMovieDto) {
     videoKey?: string; 
 
     @IsOptional()
+    @IsDate()
+    @Type(() => Date)
     release_date?: Date;
 
     @IsOptional()

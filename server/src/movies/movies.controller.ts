@@ -35,6 +35,17 @@ export class MoviesController {
     return this.moviesService.findAllMoviesCount();
   }
 
+  @Get('stats')
+  getMoviesStats() {
+    return this.moviesService.getMovieStats();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/added-per-month')
+  async getMoviesAddedPerMonth(): Promise<{ month: string; count: number }[]> {
+    return this.moviesService.getMoviesAddedPerMonth();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.moviesService.findOne(id);

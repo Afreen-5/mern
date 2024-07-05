@@ -19,6 +19,12 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard) 
+  @Get('by-role')
+  findUsersByRole() {
+    return this.usersService.findUsersByRole();
+  }
+
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {

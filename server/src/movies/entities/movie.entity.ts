@@ -21,8 +21,8 @@ export class Movie extends AbstractEntity{
     @Prop({ required: false, index: true })
     rating?: number; 
 
-    @Prop({ required: false, index: true })
-    genresId?: string[]; 
+    @Prop({type: [Number], required: false, index: true })
+    genreIds?: number[]; 
 
     @Prop({ required: false, index: true })
     poster_path?: string; 

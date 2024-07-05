@@ -1,5 +1,5 @@
-import { IsArray, IsOptional, IsString } from "class-validator";
-import { Date } from "mongoose";
+import { Type } from "class-transformer";
+import { IsArray, IsDate, IsOptional, IsString } from "class-validator";
 
 export class CreateMovieDto {
 
@@ -16,6 +16,8 @@ export class CreateMovieDto {
     videoKey?: string; 
 
     @IsOptional()
+    @IsDate()
+    @Type(() => Date)
     release_date?: Date;
 
     @IsOptional()

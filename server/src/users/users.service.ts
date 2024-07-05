@@ -2,7 +2,6 @@ import {
   HttpException,
   Injectable,
   NotFoundException,
-  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,7 +9,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from './entities/user.entity';
 import mongoose, { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Role, RoleDocument } from 'src/roles/entities/role.entity';
 
 @Injectable()
@@ -107,5 +105,37 @@ export class UsersService {
   validateId(id: string) {
     const isValid = mongoose.Types.ObjectId.isValid(id);
     return isValid;
+  }
+
+  async findUsersByRole() {
+    const users = await this.userModel.aggregate([
+      {
+        $lookup: {
+          from: 'roles', // table name
+          localField: 'role', // name in user table
+          foreignField: '_id',
+          as: 'roleDetails' 
+        },
+      },
+      {
+        $unwind: '$roleDetails'
+      },
+      {
+        $match: {
+          'roleDetails.role': "User"
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          username: 1,
+          email: 1,
+          phone: 1,
+          role: '$roleDetails'
+        }
+      }
+    ])
+    if(!users.length) throw new HttpException("Users not found", 404);
+    return users;
   }
 }

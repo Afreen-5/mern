@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
+import 'boxicons/css/boxicons.min.css';
 
 const App: React.FC = () => {
   return (

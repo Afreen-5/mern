@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
   const { logout } = authContext;
 
   return (
-    <nav className="bg-gray-800 text-white p-5 flex justify-between items-center w-full">
+    <nav className="text-white p-5 flex justify-between items-center w-full bg-gradient-to-r from-slate-900 to-slate-700">
       <h1 className="text-2xl font-bold">Admin Dashboard</h1>
       <button
         onClick={logout}

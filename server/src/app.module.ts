@@ -10,6 +10,9 @@ import { AdminModule } from './admin/admin.module';
 import { RolesModule } from './roles/roles.module';
 import { UploadsModule } from './uploads/uploads.module';
 import { GenresModule } from './genres/genres.module';
+import { ProfilesModule } from './profiles/profiles.module';
+import { ReviewsModule } from './reviews/reviews.module';
+import { RatingsModule } from './ratings/ratings.module';
 import mongoose from 'mongoose';
 
 @Module({
@@ -25,6 +28,9 @@ import mongoose from 'mongoose';
     RolesModule,
     UploadsModule,
     GenresModule,
+    ProfilesModule,
+    ReviewsModule,
+    RatingsModule,
   ],
   controllers: [AppController],
   providers: [AppService, JwtStrategy],

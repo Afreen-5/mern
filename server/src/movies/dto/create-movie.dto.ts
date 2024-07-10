@@ -1,7 +1,11 @@
 import { Type } from "class-transformer";
-import { IsArray, IsDate, IsOptional, IsString } from "class-validator";
+import { IsArray, IsDate, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateMovieDto {
+
+    @IsOptional()
+    @IsNumber()
+    movie_id: number;
 
     @IsOptional()
     @IsString()

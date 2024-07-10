@@ -4,19 +4,22 @@ import { UpdateMovieDto } from './dto/update-movie.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Movie, MovieDocumet } from './entities/movie.entity';
 import mongoose, { Model } from 'mongoose';
-import { fetchPopularMovies } from './tmdb.service';
+import { fetchPopularMovies } from '../tmdb.service';
+import { Review, ReviewDocument } from 'src/reviews/entities/review.entity';
 @Injectable()
 export class MoviesService {
   constructor(
     @InjectModel(Movie.name)
     private movieModel: Model<MovieDocumet>,
+    @InjectModel(Review.name)
+    private reviewModel: Model<ReviewDocument>
   ) {}
 
   create(createMovieDto: CreateMovieDto) {
     return this.movieModel.create(createMovieDto);
   }
 
-  findAllByPage(page = 1, limit = 10) {
+  findAllByPage(page: number , limit: number) {
     return this.movieModel
       .find()
       .skip((page - 1) * limit)
@@ -61,6 +64,7 @@ export class MoviesService {
         });
         await Promise.all(savedMovies);
         console.log('All movies saved successfully');
+        return savedMovies;
       } catch (error) {
         console.error('Error saving movies data', error);
       }
@@ -70,8 +74,9 @@ export class MoviesService {
   }
 
   // mapping the fetched movie details with the entity data
-  mapMovies(movie: any) {
+  private mapMovies(movie: any) {
     return {
+      movie_id: movie.id,
       title: movie.title,
       description: movie.overview,
       release_date: new Date(movie.release_date),
@@ -123,46 +128,72 @@ export class MoviesService {
       {
         $group: {
           _id: { $month: '$release_date' },
-          count: { $sum: 1 }
-        }
+          count: { $sum: 1 },
+        },
       },
       {
         $project: {
           _id: 0,
           month: '$_id',
-          count: 1
-        }
-      }
+          count: 1,
+        },
+      },
     ]);
-  
+
     // Ensure all months are included, even if they have a count of 0
     const allMonths = Array.from({ length: 12 }, (_, i) => ({
       month: this.getMonthName(i + 1),
-      count: 0
+      count: 0,
     }));
-  
+
     // Reverse mapping from month names to month numbers
     const monthNameToNumber: { [key: string]: number } = {
-      'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
-      'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12
+      Jan: 1,
+      Feb: 2,
+      Mar: 3,
+      Apr: 4,
+      May: 5,
+      Jun: 6,
+      Jul: 7,
+      Aug: 8,
+      Sep: 9,
+      Oct: 10,
+      Nov: 11,
+      Dec: 12,
     };
-  
+
     // Merge aggregated data with the allMonths array
-    const mergedData = allMonths.map(monthData => {
+    const mergedData = allMonths.map((monthData) => {
       const monthNumber = monthNameToNumber[monthData.month]; // Get the month number from the name
-      const found = moviesAddedPerMonth.find(m => m.month === monthNumber);
+      const found = moviesAddedPerMonth.find((m) => m.month === monthNumber);
       return found ? { month: monthData.month, count: found.count } : monthData;
     });
-  
+
     return mergedData;
   }
-  
+
   private getMonthName(month: number): string {
     const monthNames = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
     return monthNames[month - 1] || '';
   }
-  
+
+  // Get reviews by movie
+  async getReviews(movie_id: number)  {
+    const movie = await this.movieModel.findOne({movie_id: movie_id}).exec();
+    const reviews = await this.reviewModel.find({movie_id: movie.movie_id}).exec();
+    return reviews;
+  }
 }

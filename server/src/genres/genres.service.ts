@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateGenreDto } from './dto/create-genre.dto';
 import { UpdateGenreDto } from './dto/update-genre.dto';
-import { fetchGenres } from 'src/movies/tmdb.service';
+import { fetchGenres } from 'src/tmdb.service';
 import { InjectModel } from '@nestjs/mongoose';
 import { Genre, GenreDocument } from './entities/genre.entity';
 import { Model } from 'mongoose';
@@ -10,8 +10,8 @@ import { Model } from 'mongoose';
 export class GenresService {
   constructor(
     @InjectModel(Genre.name)
-    private genreModel: Model<GenreDocument>
-  ){}
+    private genreModel: Model<GenreDocument>,
+  ) {}
 
   create(createGenreDto: CreateGenreDto) {
     return 'This action adds a new genre';
@@ -38,21 +38,21 @@ export class GenresService {
   // Fetch genres from tmdb api and storing it locally in DB
   async saveGenresLocal() {
     const genres = await fetchGenres();
-    if(Array.isArray(genres)) {
-      genres.map(async(genre) => {
-        const mappedGenres = this.mapGenres(genre)
+    if (Array.isArray(genres)) {
+      genres.map(async (genre) => {
+        const mappedGenres = this.mapGenres(genre);
         await new this.genreModel(mappedGenres).save();
       });
     } else {
-      console.error("Error adding genre data to db");
+      console.error('Error adding genre data to db');
     }
-    }
+  }
 
   mapGenres(genre: any) {
-    return{
+    return {
       genresId: genre.id,
-      genre: genre.name
-    }
+      genre: genre.name,
+    };
   }
 
   async findGenresCount() {

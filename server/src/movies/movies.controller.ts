@@ -28,7 +28,7 @@ export class MoviesController {
   findAllByPage(@Query('page') page: number, @Query('limit') limit: number) {
     return this.moviesService.findAllByPage(page, limit);
   }
-
+ 
   // Movies count for Status in Admin Dashboard
   @Get('/count') 
   findAllMoviesCount() {
@@ -46,6 +46,13 @@ export class MoviesController {
     return this.moviesService.getMoviesAddedPerMonth();
   }
 
+  // Get reviews by movie
+  @UseGuards(JwtAuthGuard)
+  @Get('review-by-movie/:movie_id')
+  getReview(@Param('movie_id') movie_id: number) {
+    return this.moviesService.getReviews(movie_id);
+  }  
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.moviesService.findOne(id);
@@ -53,7 +60,7 @@ export class MoviesController {
 
   // save movies from tmdb to local db
   @Get('fetch/:category')
-  fetchMovies(@Param('category') category: string ) {
+  fetchMovies(@Param('category') category: string) {
     return this.moviesService.saveFetchedMovies(category);
   }
 

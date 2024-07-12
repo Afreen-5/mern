@@ -15,9 +15,7 @@ const App: React.FC = () => {
           <AuthProvider>
           <Routes>
               <Route path='/' element={<Home />} />
-              <Route path='/login' element={<Login onClose={function (): void {
-                throw new Error("Function not implemented.");
-              } } />} />
+              <Route path='/login' element={<Login onClose={ () => {} } /> } />
               <Route element={<ProtectedRoute />}>
                 <Route path='/admin-dashboard/*' element={<AdminDashboard />} />
               </Route>

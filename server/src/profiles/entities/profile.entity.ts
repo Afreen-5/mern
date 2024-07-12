@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 import { AbstractEntity } from "src/abstract.entity";
 import { Movie } from "src/movies/entities/movie.entity";
 import { Review } from "src/reviews/entities/review.entity";
@@ -18,8 +18,8 @@ export class Profile extends AbstractEntity{
     user: User;
 
     // N-N
-    @Prop({type:mongoose.Schema.Types.ObjectId , ref: 'Movie', required: false})
-    favorites?: Movie[];
+    @Prop({type: [{type:mongoose.Schema.Types.ObjectId , ref: 'Movie'}], required: false })
+    favorites?: mongoose.Types.ObjectId[];
 
     @Prop({type:mongoose.Schema.Types.ObjectId , ref: 'Movie', required: false})
     watchLater?: Movie[];

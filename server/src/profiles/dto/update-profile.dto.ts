@@ -16,7 +16,7 @@ export class UpdateProfileDto extends PartialType(CreateProfileDto) {
     userId: Types.ObjectId;
 
     @IsOptional()
-    favoriteIds?: Types.ObjectId[];
+    favoriteIds?: string[];
 
     @IsOptional()
     watchLaterIds?: Types.ObjectId[];

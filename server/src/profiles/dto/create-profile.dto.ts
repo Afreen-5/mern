@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsArray, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { Types } from "mongoose";
 
 export class CreateProfileDto {
@@ -15,7 +15,9 @@ export class CreateProfileDto {
     userId: Types.ObjectId;
 
     @IsOptional()
-    favoriteIds?: Types.ObjectId[];
+    // @IsArray()
+    // @IsString({each: true})
+    favoriteIds?: string[];
 
     @IsOptional()
     watchLaterIds?: Types.ObjectId[];

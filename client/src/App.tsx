@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import 'boxicons/css/boxicons.min.css';
+import MovieDetails from "./components/Home/MovieDetails";
 
 const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
           <AuthProvider>
           <Routes>
               <Route path='/' element={<Home />} />
+              <Route path="/movies/:movieId" element={<MovieDetails />} />
               <Route path='/login' element={<Login onClose={ () => {} } /> } />
               <Route element={<ProtectedRoute />}>
                 <Route path='/admin-dashboard/*' element={<AdminDashboard />} />

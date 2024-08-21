@@ -56,3 +56,16 @@ export const fetchTrendingMovies = async () => {
         return null;
     }
 }
+
+export const movieReviews = async (movie_id: number) => {
+    try {
+        const response = await axios.get(`${BASE_URL}/movie/${movie_id}/reviews?language=en-US&page=1`, {
+            params: {api_key: API_KEY}
+        });
+        console.log("Reveiws fetched successfully", response.data.results);
+        return response.data.results;
+    } catch (error) {
+        console.error("Failed to fetch movie reviews");
+        return [];
+    }
+}

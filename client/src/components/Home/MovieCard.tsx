@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchMovies } from "../../services/tmdb.service";
 import Slider from "react-slick";
-export interface MovieCardProps {
-  movie: {
-    id: number;
-    title: string;
-    poster_path: string;
-    release_date: string;
-  };
-}
 
 const MovieCard: React.FC = () => {
   const [popular, setPopular] = useState<any[]>([]);
@@ -29,7 +21,7 @@ const MovieCard: React.FC = () => {
     slidesToScroll: 1,
     responsive: [
       {
-        breakpoint: 1024, // Adjust for tablet screens
+        breakpoint: 1024, // Tablet
         settings: {
           slidesToShow: 3,
           slidesToScroll: 1,
@@ -38,7 +30,7 @@ const MovieCard: React.FC = () => {
         },
       },
       {
-        breakpoint: 600, // Adjust for mobile screens
+        breakpoint: 768, // Large mobile
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
@@ -46,7 +38,7 @@ const MovieCard: React.FC = () => {
         },
       },
       {
-        breakpoint: 480, // Adjust for smaller mobile screens
+        breakpoint: 480, // Small mobile
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -55,28 +47,26 @@ const MovieCard: React.FC = () => {
     ],
   };
 
-  const imageUrl = `https://image.tmdb.org/t/p/w500`;
+  const imageUrl = `https://image.tmdb.org/t/p/w400`;
   return (
-    <>
-      <div className="container mx-auto ">
-        <p className="my-8">MX Popular Shows</p>
-        <Slider {...settings}>
-          {popular.map((movie) => (
-            <div key={movie.id} className="px-2">
-              <img
-                className="w-full h-80 rounded-lg object-cover hover:scale-125"
-                src={`${imageUrl}${movie.poster_path}`}
-                alt={movie.original_title}
-              />
-              <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2">{movie.title}</div>
-                <p className="text-gray-700 text-base">{movie.release_date}</p>
-              </div>
+    <div className="container mx-auto p-4 md:p-8">
+      <h3 className="ml-4 mb-8 text-lg md:text-xl font-semibold">MX Popular Shows</h3>
+      <Slider {...settings}>
+        {popular.map((movie) => (
+          <div key={movie.id} className="px-2">
+            <img
+              className="w-full h-64 md:h-80 rounded-lg object-cover transition-transform transform hover:scale-110"
+              src={`${imageUrl}${movie.poster_path}`}
+              alt={movie.original_title}
+            />
+            <div className="px-2 md:px-6 py-2 md:py-4">
+              <h4 className="font-bold text-sm md:text-xl mb-2">{movie.title}</h4>
+              <p className="text-xs md:text-base text-orange-700">{movie.release_date}</p>
             </div>
-          ))}
-        </Slider>
-      </div>
-    </>
+          </div>
+        ))}
+      </Slider>
+    </div>
   );
 };
 
